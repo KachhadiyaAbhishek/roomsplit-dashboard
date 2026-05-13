@@ -371,7 +371,7 @@ function setDbStatus(s, detail){
   const map={
     connecting:{cls:'syncing',i:'⏳',t:'Connecting…'},
     saving:    {cls:'syncing',i:'💾',t:'Saving…'},
-    saved:     {cls:'live',   i:'✓', t:'PostgreSQL'},
+    saved:     {cls:'live',   i:'✓', t:'DATABASE'},
     local:     {cls:'live',   i:'💾',t:'Local Saved'},
     error:     {cls:'error',  i:'⚠', t:detail||'DB Error'},
     offline:   {cls:'syncing',i:'📴',t:'Local Only'},
