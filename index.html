@@ -697,14 +697,10 @@ function vSheet(){
   <div class="sgrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
     ${[['Total Expenses',fN(tot.total),'#60a5fa'],['Total Investment',fN(tot.investment),'#a78bfa'],['Net Payable',fN(tot.net),tot.net<0?'var(--red)':'var(--green)'],['Members',g.members.length,'var(--amber)']].map(([l,v,c])=>`<div class="scard"><div class="sl">${l}</div><div class="sv" style="color:${c}">${v}</div></div>`).join('')}
   </div>
-  <div style="display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:8px;margin-bottom:14px;font-size:12px;color:var(--text2)">
-    <span style="font-size:16px">⚡</span>
-    <span><strong style="color:var(--text)">Auto-synced:</strong> All columns are derived from expenses & recurring. Values update automatically when expenses are added.</span>
-  </div>
   <div class="tw" id="expenseTableWrap">
     <table id="expenseTable">
       <thead><tr>
-        <th style="text-align:left;min-width:155px">Member</th>
+        <th style="text-align:left;min-width:155px">Member - <span style="color:var(--red)">(${sheetLabel})</span></th>
         ${CATS.map(c=>`<th style="min-width:90px;${c==='Other'?'background:rgba(139,92,246,.1);color:#a78bfa;':''}">${CICO[c]}<br>${c}${c==='Other'?'<div style="font-size:8px;font-weight:400;opacity:.7;margin-top:1px">auto-computed</div>':(c==='Gas'||c==='Electricity')?'<div style="font-size:8px;font-weight:400;opacity:.7;margin-top:1px">manual input</div>':''}</th>`).join('')}
         <th style="min-width:95px;color:#a78bfa">💰<br>Investment<div style="font-size:8px;font-weight:400;opacity:.7;margin-top:1px">from payer</div></th>
         <th style="min-width:95px;color:#60a5fa">Σ<br>Total</th>
@@ -1345,10 +1341,6 @@ function vRecurring(){
   <div class="shdr">
     <div><h2>🔁 Recurring</h2><div class="sub">Auto-applied to all sheets when enabled</div></div>
     <button class="bp bsm" onclick="openAddRecurringModal()">+ Add</button>
-  </div>
-  <div style="display:flex;align-items:center;gap:9px;padding:9px 13px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;margin-bottom:14px;font-size:12px;color:var(--text2)">
-    <span style="font-size:16px">⚡</span>
-    <span><strong style="color:var(--green)">Live sync:</strong> Enabling/disabling a recurring expense instantly recalculates all sheets. No manual apply needed.</span>
   </div>
   ${g.recurring.map(r=>{
     const cat=(r.category&&CATS.includes(r.category))?r.category:'Other';
