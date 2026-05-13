@@ -15,7 +15,7 @@
   --red:#f43f5e;--red-bg:rgba(244,63,94,.1);--red-bdr:rgba(244,63,94,.25);
   --amber:#f59e0b;--amber-bg:rgba(245,158,11,.1);
   --purple:#8b5cf6;--purple-bg:rgba(139,92,246,.1);
-  --sw:224px;--th:54px;--r:8px;--rl:12px
+  --sw:224px;--th:54px;--r:8px;--rl:12px      
 }
 html,body{height:100%;overflow:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:14px}
@@ -319,35 +319,24 @@ function makeDefault(){
       {id:'g1',name:`${MS[pm]} ${py}`,activeSheetId:'s1',
         members:BM.map(m=>({...m})),
         sheets:[{id:'s1',month:pm,year:py,manualBase:{
-          m1:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m2:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m3:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m4:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
+          m1:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m2:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m3:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m4:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
         }}],
-        expenses:[
-          {id:'e1',title:'WiFi Bill',amount:600,paidBy:'m1',splitType:'equal',date:today,addToInvestment:true,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:pm,sheetYear:py},
-          {id:'e2',title:'House Cleaning',amount:1200,paidBy:'m2',splitType:'equal',date:today,addToInvestment:false,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:pm,sheetYear:py},
-        ],
-        recurring:[
-          {id:'r1',title:'Monthly Rent',amount:32000,enabled:true,paidBy:null,addToInvestment:false,memberSplit:null},
-        ],
+        expenses:[],
+        recurring:[],
       },
       {id:'g2',name:`${MS[now.getMonth()]} ${now.getFullYear()}`,activeSheetId:'s2',
         members:BM.map(m=>({...m})),
         sheets:[{id:'s2',month:now.getMonth(),year:now.getFullYear(),manualBase:{
-          m1:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m2:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m3:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m4:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
+          m1:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m2:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m3:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m4:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
         }}],
-        expenses:[
-          {id:'e3',title:'Electricity Bill',amount:4800,paidBy:'m2',splitType:'equal',date:today,addToInvestment:true,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:now.getMonth(),sheetYear:now.getFullYear()},
-          {id:'e4',title:'Gas Cylinders',amount:800,paidBy:'m3',splitType:'equal',date:today,addToInvestment:false,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:now.getMonth(),sheetYear:now.getFullYear()},
-        ],
-        recurring:[
-          {id:'r2',title:'Monthly Rent',amount:34000,enabled:true,paidBy:null,addToInvestment:false,memberSplit:null},
-          {id:'r3',title:'Electricity Est.',amount:5000,enabled:false,paidBy:null,addToInvestment:false,memberSplit:null},
-        ],
+        expenses:[],
+        recurring:[],
       },
     ],
   };
