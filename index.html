@@ -219,7 +219,7 @@ const MCOL=['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#06b6d4','#f43f5e
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const gi=()=>Math.random().toString(36).slice(2,9);
-const fN=n=>'₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fN=n=>Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const ini=n=>n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
 const gc=i=>MCOL[i%MCOL.length];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -319,35 +319,24 @@ function makeDefault(){
       {id:'g1',name:`${MS[pm]} ${py}`,activeSheetId:'s1',
         members:BM.map(m=>({...m})),
         sheets:[{id:'s1',month:pm,year:py,manualBase:{
-          m1:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m2:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m3:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
-          m4:{Rent:8000,Cleaning:300,Gas:180,Electricity:1050,Investment:0},
+          m1:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m2:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m3:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m4:{Rent:80000,Cleaning:0,Gas:0,Electricity:0,Investment:0},
         }}],
-        expenses:[
-          {id:'e1',title:'WiFi Bill',amount:600,paidBy:'m1',splitType:'equal',date:today,addToInvestment:true,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:pm,sheetYear:py},
-          {id:'e2',title:'House Cleaning',amount:1200,paidBy:'m2',splitType:'equal',date:today,addToInvestment:false,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:pm,sheetYear:py},
-        ],
-        recurring:[
-          {id:'r1',title:'Monthly Rent',amount:32000,enabled:true,paidBy:null,addToInvestment:false,memberSplit:null},
-        ],
+        expenses:[],
+        recurring:[],
       },
       {id:'g2',name:`${MS[now.getMonth()]} ${now.getFullYear()}`,activeSheetId:'s2',
         members:BM.map(m=>({...m})),
         sheets:[{id:'s2',month:now.getMonth(),year:now.getFullYear(),manualBase:{
-          m1:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m2:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m3:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
-          m4:{Rent:8500,Cleaning:300,Gas:200,Electricity:1200,Investment:0},
+          m1:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m2:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m3:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
+          m4:{Rent:0,Cleaning:0,Gas:0,Electricity:0,Investment:0},
         }}],
-        expenses:[
-          {id:'e3',title:'Electricity Bill',amount:4800,paidBy:'m2',splitType:'equal',date:today,addToInvestment:true,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:now.getMonth(),sheetYear:now.getFullYear()},
-          {id:'e4',title:'Gas Cylinders',amount:800,paidBy:'m3',splitType:'equal',date:today,addToInvestment:false,memberSplit:null,pcts:{},customPer:{},tags:[],sheetMonth:now.getMonth(),sheetYear:now.getFullYear()},
-        ],
-        recurring:[
-          {id:'r2',title:'Monthly Rent',amount:34000,enabled:true,paidBy:null,addToInvestment:false,memberSplit:null},
-          {id:'r3',title:'Electricity Est.',amount:5000,enabled:false,paidBy:null,addToInvestment:false,memberSplit:null},
-        ],
+        expenses:[],
+        recurring:[],
       },
     ],
   };
@@ -356,8 +345,8 @@ function makeDefault(){
 // ═══════════════════════════════════════════════════════════════
 // POSTGRESQL DATABASE LAYER
 // ═══════════════════════════════════════════════════════════════
-const DB_KEY = 'roomsplit_v5_data';
-const DB_CFG_KEY = 'roomsplit_v5_pgcfg';
+const DB_KEY = 'roomsplit_v8_data';
+const DB_CFG_KEY = 'roomsplit_v58_pgcfg';
 
 let pgConfig = null;      // {host,port,db,user,password,ssl}
 let pgConnected = false;
