@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RoomSplit — Live Expense Manager</title>
+<title>RoomSplit – Live Expense Manager</title>
+<meta name="theme-color" content="#080c14">
+<meta name="description" content="RoomSplit – Track and split shared expenses with roommates in real time.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzI1NjNlYiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3YzNhZWQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjciIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJhdXRvIgogICAgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LFNlZ29lIFVJLHNhbnMtc2VyaWYiCiAgICBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjZmZmZmZmIj4mIzgzNzc7PC90ZXh0Pgo8L3N2Zz4=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMjU2M2ViIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdjM2FlZCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSI0MCIgZmlsbD0idXJsKCNnKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIxMjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJhdXRvIgogICAgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LFNlZ29lIFVJLHNhbnMtc2VyaWYiCiAgICBmb250LXNpemU9IjEwMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iI2ZmZmZmZiI+JiM4Mzc3OzwvdGV4dD4KPC9zdmc+">
 <style>
 /* ── Reset & Root ── */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -263,8 +267,21 @@ tbody tr:hover td:first-child{background:rgba(37,99,235,.1)!important}
 /* ── Divider ── */
 .divider{height:1px;background:var(--border);margin:12px 0}
 
-/* ── Live badge ── */
-.live-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:600;color:var(--green);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:1px 6px;animation:pulse 2s ease infinite}
+/* ── Live badge — base + state variants ── */
+.live-badge{
+  display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:600;
+  border-radius:10px;padding:1px 6px;border:1px solid;
+  animation:pulse 2s ease infinite;transition:color .2s,background .2s,border-color .2s;
+}
+.live-badge.live{
+  color:var(--green);background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.2);
+}
+.live-badge.syncing{
+  color:var(--amber);background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.2);
+}
+.live-badge.error{
+  color:var(--red);background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2);
+}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 /* ── DB panel ── */
@@ -493,7 +510,7 @@ const MCOL=['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#06b6d4','#f43f5e
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const gi=()=>Math.random().toString(36).slice(2,9);
-const fN=n=>'₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fN=n=>Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const ini=n=>n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
 const gc=i=>MCOL[i%MCOL.length];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -589,22 +606,29 @@ let pgConnected = false;
 let pgApiBase = API_BASE;
 let _saveTimer = null;
 
+// current DB status — used by vSheet to render the live badge
+let _dbStatus = 'connecting';
+
 // --- DB Status UI ---
 function setDbStatus(s, detail){
+  _dbStatus = s;
   const b=document.getElementById('dbBadge');
   const ic=document.getElementById('dbIcon');
   const tx=document.getElementById('dbTxt');
   if(!b||!ic||!tx) return;
   const map={
-    connecting:{cls:'syncing',i:'⏳',t:'Connecting…'},
-    saving:    {cls:'syncing',i:'💾',t:'Saving…'},
-    saved:     {cls:'live',   i:'✓', t:'PostgreSQL'},
-    error:     {cls:'error',  i:'⚠', t:detail||'DB Error'},
+    connecting:{cls:'syncing',i:'⏳',t:'CONNECTING'},
+    saving:    {cls:'syncing',i:'💾',t:'SAVING'},
+    saved:     {cls:'live',   i:'⚡',t:'LIVE SYNC'},
+    error:     {cls:'error',  i:'⚠', t:'NOT LIVE SYNC'},
   };
-  const m=map[s]||map.local;
+  const m=map[s]||map.error;
   b.className='sync-pill '+m.cls;
   ic.textContent=m.i;
   tx.textContent=m.t;
+  // Also update the live badge inside the sheet header if it's currently visible
+  const lb=document.getElementById('sheetLiveBadge');
+  if(lb){ lb.className='live-badge '+m.cls; lb.textContent=m.i+' '+m.t; }
 }
 
 // --- Try to connect to PostgreSQL via backend API ---
@@ -909,7 +933,7 @@ function vSheet(){
   return `<div>
   <div class="shdr">
     <div>
-      <h2>📊 Expense Sheet <span class="live-badge">⚡ LIVE SYNC</span></h2>
+      <h2>📊 Expense Sheet <span id="sheetLiveBadge" class="live-badge ${(()=>{const m={connecting:'syncing',saving:'syncing',saved:'live',error:'error'};return m[_dbStatus]||'syncing';})()}">${(()=>{const m={connecting:'⏳ CONNECTING',saving:'💾 SAVING',saved:'⚡ LIVE SYNC',error:'⚠ NOT LIVE SYNC'};return m[_dbStatus]||'⏳ CONNECTING';})()}</span></h2>
       <div class="sub">${MONTHS[sh.month]} ${sh.year} · ${shExp.length} expenses + ${shRec.length} recurring auto-applied</div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
